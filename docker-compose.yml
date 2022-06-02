@@ -1,0 +1,48 @@
+version: '3.3'
+
+services:
+  back:
+    container_name: back
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic
+      --no-input && gunicorn -b 0.0.0.0:8000 beuty.wsgi --reload"
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    volumes:
+      - .:/opt/services/beuty
+      - ./static:/opt/services/beuty/src/static
+      - ./media:/opt/services/beuty/src/media
+    networks:
+      - nginx_network
+      - db_network
+    depends_on:
+      - db
+    links:
+      - db
+
+  db:
+    image: postgres:14-alpine
+    container_name: db
+    restart: always
+    networks:
+      - db_network
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - /var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - PGPORT=${DB_PORT}
+      - POSTGRES_USER=${DB_USER}
+
+volumes:
+  postgres_data:
+networks:
+  nginx_network:
+    driver: bridge
+  db_network:
+    driver: bridge
