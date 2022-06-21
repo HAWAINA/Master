@@ -5,9 +5,9 @@ from django.db import models
 class EmployeeCreation(models.Model):
     profile = models.ImageField(verbose_name="Профиль сотрудника")
     nickname = models.CharField(max_length=30, verbose_name="ФИО сотрудника")
-    tel_number = models.IntegerField(max_length=12, verbose_name="")
-    service_specialty = models.CharField('+996', max_length=30)
-    length_of_service = models.CharField(max_length=6)
+    tel_number = models.IntegerField(verbose_name="Телефон номер")
+    service_specialty = models.CharField(max_length=30, verbose_name="услуги/специальности")
+    length_of_service = models.CharField(max_length=6, verbose_name="стаж работы")
 
     class Meta:
         verbose_name = "Создание сотрудника"
@@ -26,11 +26,12 @@ class CalendarRegistration(models.Model):
 
 # Редактирование сотрудника логика находится тут:
 class EmployeeRefactor(models.Model):
-    profile = models.ImageField(verbose_name="Профиль сотрудника")
-    nickname = models.CharField(max_length=30, verbose_name="ФИО сотрудника")
-    tel_number = models.IntegerField(max_length=12, verbose_name="")
-    service_specialty = models.CharField('+996', max_length=30)
-    length_of_service = models.CharField(max_length=6)
+    profile = models.ImageField(verbose_name="Смена Профиля сотрудника")
+    nickname = models.CharField(max_length=30, verbose_name="Смена ФИО сотрудника")
+    tel_number = models.IntegerField(verbose_name="Смена Телефон номер")
+    service_specialty = models.CharField(max_length=30, verbose_name="Смена услуги/специальности")
+    length_of_service = models.CharField(max_length=6, verbose_name="стаж работы")
+    description = models.TextField(max_length=2000, verbose_name="описание")
 
     class Meta:
         verbose_name = "Редактирование сотрудника"
@@ -45,3 +46,5 @@ class CalendarRefactor(models.Model):
 
     class Meta:
         verbose_name = "Рабочий Календарь редактирование"
+
+
