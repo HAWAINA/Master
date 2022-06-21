@@ -26,7 +26,9 @@ class CalendarRefactorSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CalendarRefactor
         fields = "work_calendar_ref getting_started_ref end_of_job_ref lunch_start_ref lunch_end_ref"
- class EmployeeRefactorSerializer(serializers.ModelSerializer):
-     class Meta:
-         model = models.EmployeeRefactor
-         fields = "__all__"
+
+
+class EmployeeRefactorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.EmployeeRefactor
+        fields = "__all__"

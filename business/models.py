@@ -7,12 +7,7 @@ class EmployeeCreation(models.Model):
         verbose_name = "Создание сотрудника"
 
 
-class EmployeeRegistration(models.Model):
-    class Meta:
-        verbose_name = "Регистрация сотрудника"
-
-
-class Calendar(models.Model):
+class CalendarRegistration(models.Model):
     work_calendar = models.DateField(verbose_name="Календарь")
     getting_started = models.TimeField(verbose_name="Начало Работы")
     end_of_job = models.TimeField(verbose_name="Конец Работы")

@@ -8,9 +8,10 @@ from .yasg import urlpatterns as swagger_urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/v1/calendar", views.CalendarView),
     path("api/v1/employee_creation", views.EmployeeCreation),
-    path("api/v1/employee_registration",)
+    path("api/v1/calendar_register", views.CalendarRegistrationView),
+    path("api/v1/employee_refactor", views.EmployeeRefactorView),
+    path("api/v1/calendar_refactor", views.CalendarRefactorView),
 ]
 
 
