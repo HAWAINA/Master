@@ -6,7 +6,7 @@ from django.urls import path
 schema_view = get_schema_view(
     openapi.Info(
         title="BeutyApp",
-        default_version='v1',
+        default_version="v1",
         description="Site for BeutyApp",
         license=openapi.License(name="BSD License"),
     ),
@@ -15,7 +15,15 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-u1'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path(
+        "swagger(?P<format>\.json|\.yaml)",
+        schema_view.without_ui(cache_timeout=0),
+        name="schema-json",
+    ),
+    path(
+        "swagger/",
+        schema_view.with_ui("swagger", cache_timeout=0),
+        name="schema-swagger-u1",
+    ),
+    path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
 ]

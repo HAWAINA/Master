@@ -2,11 +2,14 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+
+from business import views
 from .yasg import urlpatterns as swagger_urlpatterns
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-] + swagger_urlpatterns
+    path("admin/", admin.site.urls),
+    path("api/v1/calendar", views.CalendarView),
+]
 
 
 if settings.DEBUG:
