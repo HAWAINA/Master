@@ -3,15 +3,9 @@ from . import models
 
 
 # Создание сотрудника:
-class EmployeeRegistrationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.EmployeeRegistration
-        fields = "__all__"
-
-
 class CalendarSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Calendar
+        model = models.CalendarRegistration
         fields = "work_calendar getting_started end_of_job lunch_start lunch_end".split()
 
 

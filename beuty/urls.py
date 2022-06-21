@@ -8,8 +8,12 @@ from .yasg import urlpatterns as swagger_urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
+    # Создание сотрудника Api
     path("api/v1/employee_creation", views.EmployeeCreation),
     path("api/v1/calendar_register", views.CalendarRegistrationView),
+
+    # Редактирование сотрудника Api
     path("api/v1/employee_refactor", views.EmployeeRefactorView),
     path("api/v1/calendar_refactor", views.CalendarRefactorView),
 ]
