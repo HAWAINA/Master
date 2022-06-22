@@ -10,7 +10,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
 
     # Создание сотрудника Api
-    path("api/v1/employee_creation", views.EmployeeCreation),
+    path("api/v1/employee_creation", views.EmployeeCreationView),
     path("api/v1/calendar_register", views.CalendarRegistrationView),
 
     # Редактирование сотрудника Api
