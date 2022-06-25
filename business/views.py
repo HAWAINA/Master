@@ -16,9 +16,18 @@ from .serializers import (
 
 
 # Запросы насчёт создание сотрудника
-@api_view(["POST"])
+@api_view(["GET", "POST"])
 def employee_creation_view(request):
-    if request.method == "POST":
+    try:
+        employee_creation = EmployeeCreation.objects.get(id=id)
+    except EmployeeCreation.DoesNotExist:
+        return Response(
+            data={"error": "Movie not Found!!!"}, status=status.HTTP_404_NOT_FOUND
+        )
+    if request.method == "GET":
+        serializer = EmployeeCreationSerializer(employee_creation)
+        return Response(data=serializer.data)
+    elif request.method == "POST":
         profile = request.data.get("profile")
         nickname = request.data.get("nickname")
         tel_number = request.data.get("tel_number")
@@ -34,8 +43,17 @@ def employee_creation_view(request):
         return Response(data=EmployeeCreationSerializer(employee_create).data)
 
 
-@api_view(["POST"])
+@api_view(["GET", "POST"])
 def calendar_registration_view(request):
+    try:
+        calendar_registration = CalendarRegistration.objects.get(id=id)
+    except CalendarRegistration.DoesNotExist:
+        return Response(
+            data={"error": "Movie not Found!!!"}, status=status.HTTP_404_NOT_FOUND
+        )
+    if request.method == "GET":
+        serializer = CalendarRegistrationSerializer(calendar_registration)
+        return Response(data=serializer.data)
     if request.method == "POST":
         work_calendar = request.data.get("work_calendar")
         getting_started = request.data.get("getting_started")
