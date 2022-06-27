@@ -3,12 +3,8 @@ from django.db import models
 
 # Создание сотрудника логика находится тут:
 class EmployeeCreation(models.Model):
-    profile = models.ImageField(
-        verbose_name="Профиль сотрудника", null=True
-    )
-    nickname = models.CharField(
-        max_length=30, verbose_name="ФИО сотрудника", null=True
-    )
+    profile = models.ImageField(verbose_name="Профиль сотрудника", null=True)
+    nickname = models.CharField(max_length=30, verbose_name="ФИО сотрудника", null=True)
     tel_number = models.IntegerField(
         blank=True, verbose_name="Телефон номер", null=True
     )
@@ -36,15 +32,11 @@ class CalendarRegistration(models.Model):
 
 # Редактирование сотрудника логика находится тут:
 class EmployeeRefactor(models.Model):
-    profile_ref = models.ImageField(
-        verbose_name="Смена Профиля сотрудника", null=True
-    )
+    profile_ref = models.ImageField(verbose_name="Смена Профиля сотрудника", null=True)
     nickname_ref = models.CharField(
         max_length=30, verbose_name="Смена ФИО сотрудника", null=True
     )
-    tel_number_ref = models.IntegerField(
-        verbose_name="Смена Телефон номер", null=True
-    )
+    tel_number_ref = models.IntegerField(verbose_name="Смена Телефон номер", null=True)
     service_specialty_ref = models.CharField(
         max_length=30, verbose_name="Смена услуги/специальности", null=True
     )

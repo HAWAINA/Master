@@ -16,7 +16,7 @@ class EmployeeCreationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.EmployeeCreation
-        fields = "__all__"
+        fields = "profile nickname tel_number service_specialty length_of_service calendar_registration"
 
 
 # Редактирование сотрудника:
@@ -31,4 +31,4 @@ class EmployeeRefactorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.EmployeeRefactor
-        fields = "__all__"
+        fields = "profile_ref nickname_ref tel_number_ref service_specialty_ref length_of_service_ref description_ref calendar_ref"

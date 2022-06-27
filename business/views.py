@@ -22,7 +22,8 @@ def employee_creation_view(request):
         employee_creation = EmployeeCreation.objects.get(id=id)
     except EmployeeCreation.DoesNotExist:
         return Response(
-            data={"error": "Employee not Created!!!"}, status=status.HTTP_405_METHOD_NOT_ALLOWED
+            data={"error": "Employee not Created!!!"},
+            status=status.HTTP_405_METHOD_NOT_ALLOWED,
         )
     if request.method == "GET":
         serializer = EmployeeCreationSerializer(employee_creation)
@@ -49,7 +50,8 @@ def calendar_registration_view(request):
         calendar_registration = CalendarRegistration.objects.get(id=id)
     except CalendarRegistration.DoesNotExist:
         return Response(
-            data={"error": "Calendar not Created!!!"}, status=status.HTTP_405_METHOD_NOT_ALLOWED
+            data={"error": "Calendar not Created!!!"},
+            status=status.HTTP_405_METHOD_NOT_ALLOWED,
         )
     if request.method == "GET":
         serializer = CalendarRegistrationSerializer(calendar_registration)
