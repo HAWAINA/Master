@@ -12,7 +12,7 @@ from .serializers import (
 
 
 @api_view(["GET", "POST"])
-def employee_creation_view(request):
+def employee_view(request):
     try:
         employee = Employee.objects.all()
     except Employee.DoesNotExist:
@@ -46,7 +46,7 @@ def employee_creation_view(request):
 @api_view(["GET", "PUT", "DELETE"])
 def employee_refactor_view(request, id):
     try:
-        employee_create = Employee.objects.get(id=id)
+        employee_create = Employee.objects.all().filter(id=id)
     except Employee.DoesNotExist:
         return Response(
             data={"error": "Employee not Found!!!"}, status=status.HTTP_404_NOT_FOUND
@@ -71,9 +71,9 @@ def employee_refactor_view(request, id):
 
 
 @api_view(["GET", "POST"])
-def calendar_registration_view(request):
+def calendar_view(request):
     try:
-        calendar = Calendar.objects.all()
+        calendar = Calendar.objects.all().filter(id=id)
     except Calendar.DoesNotExist:
         return Response(
             data={"error": "Calendar not Created!!!"},

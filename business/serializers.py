@@ -13,14 +13,9 @@ class CalendarSerializer(serializers.ModelSerializer):
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
-    calendar_register = CalendarSerializer()
+    calendar = CalendarSerializer()
 
     class Meta:
         model = Employee
-        fields = "id profile nickname tel_number service_specialty length_of_service calendar_register " \
-                 "calendar_register".split()
+        fields = "id profile nickname tel_number service_specialty length_of_service calendar calendar".split()
 
-    def velidate_employee_id(self, employee_id):
-        if Employee.objects.filter(id=employee_id).count() == 0:
-            raise ValidationError(f"Employee with id={employee_id} not found!")
-        return employee_id

@@ -31,8 +31,8 @@ class Employee(models.Model):
     description = models.CharField(
         max_length=2000, verbose_name="Описание", null=False
     )
-    calendar_register = models.ForeignKey(
-        Calendar, on_delete=models.CASCADE, related_name="calendars"
+    calendar = models.ForeignKey(
+        Calendar, on_delete=models.CASCADE, related_name="calendar"
     )
 
     class Meta:
