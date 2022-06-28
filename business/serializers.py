@@ -30,12 +30,12 @@ class CalendarRefactorSerializer(serializers.ModelSerializer):
 
 
 class EmployeeRefactorSerializer(serializers.ModelSerializer):
-    # calendar_ref = CalendarRefactorSerializer()
+    calendar_refactor = CalendarRefactorSerializer()
 
     class Meta:
         model = EmployeeRefactor
         fields = "id profile_ref nickname_ref tel_number_ref service_specialty_ref length_of_service_ref " \
-                 "description_ref".split()
+                 "description_ref calendar_refactor".split()
 
     def velidate_employee_id(self, employee_id):
         if EmployeeCreation.objects.filter(id=employee_id).count() == 0:

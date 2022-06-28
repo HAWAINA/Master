@@ -22,6 +22,11 @@ class CalendarAdmin(admin.ModelAdmin):
 
     search_fields = ("nickname".split())
 
+    list_display_links = (
+        "id",
+        "work_calendar"
+    )
+
 
 admin.site.register(models.EmployeeCreation, EmployeeAdmin)
 admin.site.register(models.CalendarRegistration, CalendarAdmin)

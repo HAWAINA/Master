@@ -34,8 +34,8 @@ def employee_creation_view(request):
         tel_number = request.data.get("tel_number")
         service_specialty = request.data.get("service_specialty")
         length_of_service = request.data.get("length_of_service")
-        calendar_register = request.data.get("calendars")
-        employee_create = request.data.create(
+        calendar_register = request.data.get("calendar_register")
+        employee_create = EmployeeCreation.objects.create(
             calendar_register=calendar_register,
             profile=profile,
             nickname=nickname,
@@ -78,47 +78,48 @@ def calendar_registration_view(request):
 @api_view(["GET", "PUT", "DELETE"])
 def employee_refactor_view(request, id):
     try:
-        employee_refactor = EmployeeRefactor.objects.get(id=id)
+        employee_create = EmployeeRefactor.objects.get(id=id)
     except EmployeeRefactor.DoesNotExist:
         return Response(
             data={"error": "Employee not Found!!!"}, status=status.HTTP_404_NOT_FOUND
         )
     if request.method == "GET":
-        serializer = CalendarRefactorSerializer(employee_refactor)
+        serializer = CalendarRefactorSerializer(employee_create, many=True)
         return Response(data=serializer.data)
     elif request.method == "DELETE":
-        employee_refactor.delete()
+        employee_create.delete()
         return Response(data={"massage": "Employee removed!"})
     else:
-        employee_refactor.profile_ref = request.data.get("profile_ref")
-        employee_refactor.nickname_ref = request.data.get("nickname_ref")
-        employee_refactor.tel_number_ref = request.data.get("tel_number_ref")
-        employee_refactor.service_specialty_ref = request.data.get("service_specialty_ref")
-        employee_refactor.length_of_service_ref = request.data.get("length_of_service_ref")
-        employee_refactor.description_ref = request.data.get("description_ref")
-        employee_refactor.save()
-        return Response(data=EmployeeRefactorSerializer(employee_refactor).data)
+        employee_create.profile = request.data.get("profile_ref")
+        employee_create.nickname = request.data.get("nickname_ref")
+        employee_create.tel_number = request.data.get("tel_number_ref")
+        employee_create.service_specialty = request.data.get("service_specialty_ref")
+        employee_create.length_of_service = request.data.get("length_of_service_ref")
+        employee_create.description = request.data.get("description_ref")
+        employee_create.calendar_refactor = request.data.get("calendar_refactor")
+        employee_create.save()
+        return Response(data=EmployeeRefactorSerializer(employee_create).data)
 
 
 @api_view(["GET", "PUT", "DELETE"])
 def calendar_refactor_view(request):
     try:
-        calendar_refactor = CalendarRefactor.objects.get(id=id)
+        calendar_registration = CalendarRegistration.objects.get(id=id)
     except CalendarRefactor.DoesNotExist:
         return Response(
             data={"error": "Calendar not Found!!!"}, status=status.HTTP_404_NOT_FOUND
         )
     if request.method == "GET":
-        serializer = CalendarRefactorSerializer(calendar_refactor)
+        serializer = CalendarRefactorSerializer(calendar_registration)
         return Response(data=serializer.data)
     elif request.method == "DELETE":
-        calendar_refactor.delete()
+        calendar_registration.delete()
         return Response(data={"massage": "Calendar removed!"})
     else:
-        calendar_refactor.work_calendar_ref = request.data.get("work_calendar_ref")
-        calendar_refactor.getting_started_ref = request.data.get("getting_started_ref")
-        calendar_refactor.end_of_job_ref = request.data.get("end_of_job_ref")
-        calendar_refactor.lunch_start_ref = request.data.get("lunch_start_ref")
-        calendar_refactor.lunch_end_ref = request.data.get("lunch_end_ref")
-        calendar_refactor.save()
-        return Response(data=CalendarRefactorSerializer(calendar_refactor).data)
+        calendar_registration.work_calendar = request.data.get("work_calendar_ref")
+        calendar_registration.getting_started = request.data.get("getting_started_ref")
+        calendar_registration.end_of_job = request.data.get("end_of_job_ref")
+        calendar_registration.lunch_start = request.data.get("lunch_start_ref")
+        calendar_registration.lunch_end = request.data.get("lunch_end_ref")
+        calendar_registration.save()
+        return Response(data=CalendarRefactorSerializer(calendar_registration).data)
