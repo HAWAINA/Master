@@ -18,6 +18,9 @@ class EmployeeCreation(models.Model):
     class Meta:
         verbose_name = "Создание сотрудника"
 
+    def __str__(self):
+        return self.nickname, self.service_specialty, self.length_of_service
+
 
 class CalendarRegistration(models.Model):
     work_calendar = models.DateField(verbose_name="Календарь")
@@ -43,12 +46,15 @@ class EmployeeRefactor(models.Model):
     length_of_service_ref = models.CharField(
         max_length=6, verbose_name="стаж работы", null=True
     )
-    description_ref = models.TextField(
+    description_ref = models.CharField(
         max_length=2000, verbose_name="описание", null=True
     )
 
     class Meta:
         verbose_name = "Редактирование сотрудника"
+
+    def __str__(self):
+        return self.nickname_ref, self.service_specialty_ref, self.length_of_service_ref, self.description_ref
 
 
 class CalendarRefactor(models.Model):
