@@ -2,27 +2,26 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import (
-    CalendarRegistration,
-    EmployeeCreation,
+    Calendar,
+    Employee,
 )
 from .serializers import (
-    CalendarRegistrationSerializer,
-    EmployeeCreationSerializer,
+    CalendarSerializer,
+    EmployeeSerializer,
 )
 
 
-# Сам работник
 @api_view(["GET", "POST"])
 def employee_creation_view(request):
     try:
-        employee_creation = EmployeeCreation.objects.all()
-    except EmployeeCreation.DoesNotExist:
+        employee = Employee.objects.all()
+    except Employee.DoesNotExist:
         return Response(
             data={"error": "Employee not Created!!!"},
             status=status.HTTP_405_METHOD_NOT_ALLOWED,
         )
     if request.method == "GET":
-        serializer = EmployeeCreationSerializer(employee_creation, many=True)
+        serializer = EmployeeSerializer(employee, many=True)
         return Response(data=serializer.data)
     elif request.method == "POST":
         profile = request.data.get("profile")
@@ -32,7 +31,7 @@ def employee_creation_view(request):
         length_of_service = request.data.get("length_of_service")
         description = request.data.get("description")
         calendar_register = request.data.get("calendar_register")
-        employee_create = EmployeeCreation.objects.create(
+        employee_create = Employee.objects.create(
             profile=profile,
             nickname=nickname,
             tel_number=tel_number,
@@ -41,19 +40,19 @@ def employee_creation_view(request):
             description=description,
             calendar_register=calendar_register,
         )
-        return Response(data=EmployeeCreationSerializer(employee_create).data)
+        return Response(data=EmployeeSerializer(employee_create).data)
 
 
 @api_view(["GET", "PUT", "DELETE"])
 def employee_refactor_view(request, id):
     try:
-        employee_create = EmployeeCreation.objects.get(id=id)
-    except EmployeeCreation.DoesNotExist:
+        employee_create = Employee.objects.get(id=id)
+    except Employee.DoesNotExist:
         return Response(
             data={"error": "Employee not Found!!!"}, status=status.HTTP_404_NOT_FOUND
         )
     if request.method == "GET":
-        serializer = EmployeeCreationSerializer(employee_create, many=True)
+        serializer = EmployeeSerializer(employee_create, many=True)
         return Response(data=serializer.data)
     elif request.method == "DELETE":
         employee_create.delete()
@@ -68,21 +67,20 @@ def employee_refactor_view(request, id):
         employee_create.description = request.data.get("description")
         employee_create.calendar_register = request.data.get("calendar_register")
         employee_create.save()
-        return Response(data=EmployeeCreationSerializer(employee_create).data)
+        return Response(data=EmployeeSerializer(employee_create).data)
 
 
-# Календарь рабочего
 @api_view(["GET", "POST"])
 def calendar_registration_view(request):
     try:
-        calendar_registration = CalendarRegistration.objects.all()
-    except CalendarRegistration.DoesNotExist:
+        calendar = Calendar.objects.all()
+    except Calendar.DoesNotExist:
         return Response(
             data={"error": "Calendar not Created!!!"},
             status=status.HTTP_405_METHOD_NOT_ALLOWED,
         )
     if request.method == "GET":
-        serializer = CalendarRegistrationSerializer(calendar_registration, many=True)
+        serializer = CalendarSerializer(calendar, many=True)
         return Response(data=serializer.data)
     if request.method == "POST":
         work_calendar = request.data.get("work_calendar")
@@ -97,28 +95,28 @@ def calendar_registration_view(request):
             lunch_start=lunch_start,
             lunch_end=lunch_end,
         )
-        return Response(data=CalendarRegistrationSerializer(calendar_create).data)
+        return Response(data=CalendarSerializer(calendar_create).data)
 
 
 @api_view(["GET", "PUT", "DELETE"])
 def calendar_refactor_view(request):
     try:
-        calendar_registration = CalendarRegistration.objects.get(id=id)
-    except CalendarRegistration.DoesNotExist:
+        calendar = Calendar.objects.get(id=id)
+    except Calendar.DoesNotExist:
         return Response(
             data={"error": "Calendar not Found!!!"}, status=status.HTTP_404_NOT_FOUND
         )
     if request.method == "GET":
-        serializer = CalendarRegistrationSerializer(calendar_registration)
+        serializer = CalendarSerializer(calendar)
         return Response(data=serializer.data)
     elif request.method == "DELETE":
-        calendar_registration.delete()
+        calendar.delete()
         return Response(data={"massage": "Calendar removed!"})
     else:
-        calendar_registration.work_calendar = request.data.get("work_calendar")
-        calendar_registration.getting_started = request.data.get("getting_started")
-        calendar_registration.end_of_job = request.data.get("end_of_job")
-        calendar_registration.lunch_start = request.data.get("lunch_start")
-        calendar_registration.lunch_end = request.data.get("lunch_end")
-        calendar_registration.save()
-        return Response(data=CalendarRegistrationSerializer(calendar_registration).data)
+        calendar.work_calendar = request.data.get("work_calendar")
+        calendar.getting_started = request.data.get("getting_started")
+        calendar.end_of_job = request.data.get("end_of_job")
+        calendar.lunch_start = request.data.get("lunch_start")
+        calendar.lunch_end = request.data.get("lunch_end")
+        calendar.save()
+        return Response(data=CalendarSerializer(calendar).data)

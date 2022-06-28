@@ -1,8 +1,7 @@
 from django.db import models
 
 
-# Создание сотрудника логика находится тут:
-class CalendarRegistration(models.Model):
+class Calendar(models.Model):
     work_calendar = models.DateField(verbose_name="Календарь", null=True)
     getting_started = models.TimeField(verbose_name="Начало Работы")
     end_of_job = models.TimeField(verbose_name="Конец Работы")
@@ -13,7 +12,7 @@ class CalendarRegistration(models.Model):
         verbose_name = "Work Calendar"
 
 
-class EmployeeCreation(models.Model):
+class Employee(models.Model):
     profile = models.ImageField(
         verbose_name="Профиль сотрудника", null=True
     )
@@ -33,7 +32,7 @@ class EmployeeCreation(models.Model):
         max_length=2000, verbose_name="Описание", null=False
     )
     calendar_register = models.ForeignKey(
-        CalendarRegistration, on_delete=models.CASCADE, related_name="calendars"
+        Calendar, on_delete=models.CASCADE, related_name="calendars"
     )
 
     class Meta:
