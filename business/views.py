@@ -19,14 +19,14 @@ from .serializers import (
 @api_view(["GET", "POST"])
 def employee_creation_view(request):
     try:
-        employee_creation = EmployeeCreation.objects.get(id=id)
+        employee_creation = EmployeeCreation.objects.all()
     except EmployeeCreation.DoesNotExist:
         return Response(
             data={"error": "Employee not Created!!!"},
             status=status.HTTP_405_METHOD_NOT_ALLOWED,
         )
     if request.method == "GET":
-        serializer = EmployeeCreationSerializer(employee_creation)
+        serializer = EmployeeCreationSerializer(employee_creation, many=True)
         return Response(data=serializer.data)
     elif request.method == "POST":
         profile = request.data.get("profile")
@@ -34,7 +34,9 @@ def employee_creation_view(request):
         tel_number = request.data.get("tel_number")
         service_specialty = request.data.get("service_specialty")
         length_of_service = request.data.get("length_of_service")
+        calendar_register = request.data.get("calendars")
         employee_create = request.data.create(
+            calendar_register=calendar_register,
             profile=profile,
             nickname=nickname,
             tel_number=tel_number,
@@ -47,14 +49,14 @@ def employee_creation_view(request):
 @api_view(["GET", "POST"])
 def calendar_registration_view(request):
     try:
-        calendar_registration = CalendarRegistration.objects.get(id=id)
+        calendar_registration = CalendarRegistration.objects.all()
     except CalendarRegistration.DoesNotExist:
         return Response(
             data={"error": "Calendar not Created!!!"},
             status=status.HTTP_405_METHOD_NOT_ALLOWED,
         )
     if request.method == "GET":
-        serializer = CalendarRegistrationSerializer(calendar_registration)
+        serializer = CalendarRegistrationSerializer(calendar_registration, many=True)
         return Response(data=serializer.data)
     if request.method == "POST":
         work_calendar = request.data.get("work_calendar")
@@ -91,12 +93,8 @@ def employee_refactor_view(request, id):
         employee_refactor.profile_ref = request.data.get("profile_ref")
         employee_refactor.nickname_ref = request.data.get("nickname_ref")
         employee_refactor.tel_number_ref = request.data.get("tel_number_ref")
-        employee_refactor.service_specialty_ref = request.data.get(
-            "service_specialty_ref"
-        )
-        employee_refactor.length_of_service_ref = request.data.get(
-            "length_of_service_ref"
-        )
+        employee_refactor.service_specialty_ref = request.data.get("service_specialty_ref")
+        employee_refactor.length_of_service_ref = request.data.get("length_of_service_ref")
         employee_refactor.description_ref = request.data.get("description_ref")
         employee_refactor.save()
         return Response(data=EmployeeRefactorSerializer(employee_refactor).data)
