@@ -65,7 +65,8 @@ def employee_refactor_view(request, id):
         employee_create.service_specialty = request.data.get("service_specialty")
         employee_create.length_of_service = request.data.get("length_of_service")
         employee_create.description = request.data.get("description")
-        employee_create.calendar_refactor = request.data.get("calendar_refactor")
+        employee_create.description = request.data.get("description")
+        employee_create.calendar_register = request.data.get("calendar_register")
         employee_create.save()
         return Response(data=EmployeeCreationSerializer(employee_create).data)
 
