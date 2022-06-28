@@ -30,5 +30,3 @@ class CalendarAdmin(admin.ModelAdmin):
 
 admin.site.register(models.EmployeeCreation, EmployeeAdmin)
 admin.site.register(models.CalendarRegistration, CalendarAdmin)
-admin.site.register(models.EmployeeRefactor)
-admin.site.register(models.CalendarRefactor)

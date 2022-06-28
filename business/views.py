@@ -11,7 +11,7 @@ from .serializers import (
 )
 
 
-# Запросы насчёт создание сотрудника
+# Сам работник
 @api_view(["GET", "POST"])
 def employee_creation_view(request):
     try:
@@ -68,6 +68,7 @@ def employee_refactor_view(request, id):
         return Response(data=EmployeeCreationSerializer(employee_create).data)
 
 
+# Календарь рабочего
 @api_view(["GET", "POST"])
 def calendar_registration_view(request):
     try:
