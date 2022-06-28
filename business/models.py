@@ -29,6 +29,9 @@ class EmployeeCreation(models.Model):
     length_of_service = models.CharField(
         max_length=6, verbose_name="стаж работы", null=True
     )
+    description = models.CharField(
+        max_length=2000, verbose_name="Описание", null=False
+    )
     calendar_register = models.ForeignKey(
         CalendarRegistration, on_delete=models.CASCADE, related_name="calendars"
     )

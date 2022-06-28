@@ -30,14 +30,16 @@ def employee_creation_view(request):
         tel_number = request.data.get("tel_number")
         service_specialty = request.data.get("service_specialty")
         length_of_service = request.data.get("length_of_service")
+        description = request.data.get("description")
         calendar_register = request.data.get("calendar_register")
         employee_create = EmployeeCreation.objects.create(
-            calendar_register=calendar_register,
             profile=profile,
             nickname=nickname,
             tel_number=tel_number,
             service_specialty=service_specialty,
             length_of_service=length_of_service,
+            description=description,
+            calendar_register=calendar_register,
         )
         return Response(data=EmployeeCreationSerializer(employee_create).data)
 
