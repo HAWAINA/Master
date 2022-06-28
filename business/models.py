@@ -10,7 +10,7 @@ class CalendarRegistration(models.Model):
     lunch_end = models.TimeField(verbose_name="Конец обеда", null=True)
 
     class Meta:
-        verbose_name = "Рабочий Календарь"
+        verbose_name = "Work Calendar"
 
 
 class EmployeeCreation(models.Model):
@@ -34,7 +34,7 @@ class EmployeeCreation(models.Model):
     )
 
     class Meta:
-        verbose_name = "Создание сотрудника"
+        verbose_name = "Creating an Employee"
 
 
 # Редактирование сотрудника логика находится тут:
@@ -46,7 +46,7 @@ class CalendarRefactor(models.Model):
     lunch_end_ref = models.TimeField(verbose_name="Конец обеда", null=True)
 
     class Meta:
-        verbose_name = "Редактирование рабочий Календарь"
+        verbose_name = "Editing Work Calendar"
 
 
 class EmployeeRefactor(models.Model):
@@ -71,4 +71,4 @@ class EmployeeRefactor(models.Model):
     calendar_refactor = models.ForeignKey(CalendarRefactor, on_delete=models.CASCADE, related_name="calendar_ref")
 
     class Meta:
-        verbose_name = "Редактирование сотрудника"
+        verbose_name = "Editing an employee"
