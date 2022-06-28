@@ -7,8 +7,6 @@ from .models import (
 )
 from .serializers import (
     CalendarRegistrationSerializer,
-    CalendarRefactorSerializer,
-    EmployeeRefactorSerializer,
     EmployeeCreationSerializer,
 )
 
@@ -82,7 +80,7 @@ def employee_refactor_view(request, id):
             data={"error": "Employee not Found!!!"}, status=status.HTTP_404_NOT_FOUND
         )
     if request.method == "GET":
-        serializer = CalendarRefactorSerializer(employee_create, many=True)
+        serializer = EmployeeCreationSerializer(employee_create, many=True)
         return Response(data=serializer.data)
     elif request.method == "DELETE":
         employee_create.delete()
@@ -96,7 +94,7 @@ def employee_refactor_view(request, id):
         employee_create.description = request.data.get("description_ref")
         employee_create.calendar_refactor = request.data.get("calendar_refactor")
         employee_create.save()
-        return Response(data=EmployeeRefactorSerializer(employee_create).data)
+        return Response(data=EmployeeCreationSerializer(employee_create).data)
 
 
 @api_view(["GET", "PUT", "DELETE"])
@@ -108,7 +106,7 @@ def calendar_refactor_view(request):
             data={"error": "Calendar not Found!!!"}, status=status.HTTP_404_NOT_FOUND
         )
     if request.method == "GET":
-        serializer = CalendarRefactorSerializer(calendar_registration)
+        serializer = CalendarRegistrationSerializer(calendar_registration)
         return Response(data=serializer.data)
     elif request.method == "DELETE":
         calendar_registration.delete()
@@ -120,4 +118,4 @@ def calendar_refactor_view(request):
         calendar_registration.lunch_start = request.data.get("lunch_start_ref")
         calendar_registration.lunch_end = request.data.get("lunch_end_ref")
         calendar_registration.save()
-        return Response(data=CalendarRefactorSerializer(calendar_registration).data)
+        return Response(data=CalendarRegistrationSerializer(calendar_registration).data)
