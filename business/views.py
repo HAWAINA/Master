@@ -3,9 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import (
     CalendarRegistration,
-    CalendarRefactor,
     EmployeeCreation,
-    EmployeeRefactor,
 )
 from .serializers import (
     CalendarRegistrationSerializer,
@@ -78,8 +76,8 @@ def calendar_registration_view(request):
 @api_view(["GET", "PUT", "DELETE"])
 def employee_refactor_view(request, id):
     try:
-        employee_create = EmployeeRefactor.objects.get(id=id)
-    except EmployeeRefactor.DoesNotExist:
+        employee_create = EmployeeCreation.objects.get(id=id)
+    except EmployeeCreation.DoesNotExist:
         return Response(
             data={"error": "Employee not Found!!!"}, status=status.HTTP_404_NOT_FOUND
         )
@@ -105,7 +103,7 @@ def employee_refactor_view(request, id):
 def calendar_refactor_view(request):
     try:
         calendar_registration = CalendarRegistration.objects.get(id=id)
-    except CalendarRefactor.DoesNotExist:
+    except CalendarRegistration.DoesNotExist:
         return Response(
             data={"error": "Calendar not Found!!!"}, status=status.HTTP_404_NOT_FOUND
         )
